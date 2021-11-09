@@ -21,12 +21,13 @@ namespace IntroducaoDapper
                 //UpdateCategory(connection);
                 //ExecuteProcedure(connection);
                 //ExecuteReadProcedure(connection);
-                //ListCategories(connection);
+                ListCategories(connection);
                 //OneToOne(connection);
                 //OneToMany(connection);
                 //QueryMultiple(connection);
                 //SelectIn(connection);
-                Like(connection, "api");
+                //Like(connection, "api");
+                //Transaction(connection);
             }
         }
 
@@ -259,46 +260,32 @@ namespace IntroducaoDapper
 
             var category = new Category();
             category.Id = Guid.NewGuid();
-            category.Title = "Azure Microsoft";
+            category.Title = "Azure";
             category.Url = "azure";
-            category.Description = "Categoria destinada a serviços da Microsoft";
+            category.Description = "Categoria que n quero";
             category.Order = 9;
             category.Summary = "Azure Cloud";
             category.Featured = false;
 
-            var category2 = new Category();
-            category2.Id = Guid.NewGuid();
-            category2.Title = "Categoria nova";
-            category2.Url = "categoria-nova";
-            category2.Description = "Categoria nova";
-            category2.Order = 10;
-            category2.Summary = "Categoria";
-            category2.Featured = true;
-
             var insertSql = @"INSERT INTO [Category] 
                             VALUES(@Id, @Title, @Url, @Summary, @Order, @Description, @Featured)";
-
-            var rows = connection.Execute(insertSql, new[]
+            connection.Open();
+            using (var transaction = connection.BeginTransaction())
             {
-                new {
-                category.Id,
-                category.Title,
-                category.Url,
-                category.Summary,
-                category.Order,
-                category.Description,
-                category.Featured,
-            },
-                new {
-                category2.Id,
-                category2.Title,
-                category2.Url,
-                category2.Summary,
-                category2.Order,
-                category2.Description,
-                category2.Featured,
-            }});
-            Console.WriteLine($"{rows} linhas inseridas");
+                var rows = connection.Execute(insertSql, new
+                {
+                    category.Id,
+                    category.Title,
+                    category.Url,
+                    category.Summary,
+                    category.Order,
+                    category.Description,
+                    category.Featured,
+                }, transaction);
+                transaction.Commit();
+                //transaction.Rollback();
+                Console.WriteLine($"{rows} linhas inseridas");
+            }
         }
     }
 }
