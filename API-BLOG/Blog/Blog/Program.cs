@@ -13,12 +13,21 @@ namespace Blog
         public static void Main(string[] args)
         {
             var connection = new SqlConnection(_connection);
-            var repository = new Repository<User>(connection);
-            var users = repository.Get();
-            foreach (var item in users)
-            {
-                Console.WriteLine(item.Name);
-            }
+            //var repository = new Repository<User>(connection);
+            //var users = repository.Get();
+            //foreach (var item in users)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+            connection.Open();
+            Load();
+            Console.ReadKey();
+            connection.Close();
+        }
+
+        private static void Load()
+        {
+
         }
     }
 }
