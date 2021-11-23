@@ -17,8 +17,8 @@ namespace Blog.Screens.TagScreens
             WriteLine();
             WriteLine("1 - Listar tags");
             WriteLine("2 - Cadastrar tags");
-            WriteLine("2 - Atualizar tags");
-            WriteLine("2 - Excluir tags");
+            WriteLine("3 - Atualizar tags");
+            WriteLine("4 - Excluir tags");
             WriteLine();
             WriteLine();
             var option = short.Parse(ReadLine());
@@ -29,10 +29,10 @@ namespace Blog.Screens.TagScreens
                     ListTagsScreen.Load();
                     break;
                 case 2:
-                    UpdateTagScreen.Load();
+                    CreateTagScreen.Load();
                     break;
                 case 3:
-                    CreateTagScreen.Load();
+                    UpdateTagScreen.Load();
                     break;
                 case 4:
                     DeleteTagScreen.Load();
