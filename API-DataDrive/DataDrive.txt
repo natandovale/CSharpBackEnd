@@ -1,0 +1,2 @@
+Um paradigma de programação no qual as instruções do programa descrevem os dados a serem 
+correspondidos e o processamento necessário, em vez de definir uma sequência de etapas a serem executadas
