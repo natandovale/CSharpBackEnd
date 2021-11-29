@@ -21,7 +21,7 @@ namespace IntroducaoDapper
                 //UpdateCategory(connection);
                 //ExecuteProcedure(connection);
                 //ExecuteReadProcedure(connection);
-                ListCategories(connection);
+                //ListCategories(connection);
                 //OneToOne(connection);
                 //OneToMany(connection);
                 //QueryMultiple(connection);
