@@ -54,5 +54,23 @@ namespace Shop.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        public async Task<ActionResult<Product>> Delete(int id, [FromServices] DataContext context)
+        {
+            var product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if (product == null)
+                return NotFound(new { message = "Categoria não encontrada" });
+
+            try
+            {
+                context.Products.Remove(product);
+                await context.SaveChangesAsync();
+                return Ok(new { message = "Produto excluido como sucesso" });
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "Este registro já foi atualizado" });
+            }
+        }
     }
 }
