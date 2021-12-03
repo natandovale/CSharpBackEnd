@@ -1,0 +1,7 @@
+Consiste em um padrão de modelagem para softwares, cujo objetivo é facilitar a implementação de regras e 
+processos complexos, além da divisão de responsabilidades por camadas.
+Conceitos:
+Linguagem Ubíqua é a linguagem falada no dia dia, no contexto da empresa. 
+É a linguagem que utiliza as terminologias da realidade do negócio.Linguagem com os conceitos claros e unicos.
+Dominios Anemicos:um modelo de domínio anêmico é um modelo de domínio de software em que os objetos de 
+domínio contêm pouca ou nenhuma lógica de negócios
