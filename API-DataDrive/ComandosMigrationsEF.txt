@@ -1,0 +1,11 @@
+//ferramenta acesso a todos os comandos do EF
+dotnet tool install --global dotnet-ef
+
+//
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+//
+dotnet ef migrations add initialCreate
+
+//
+dotnet ef database update
