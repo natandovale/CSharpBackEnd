@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Models;
@@ -14,6 +15,7 @@ namespace Shop.Controllers
     {
         [HttpGet]
         [Route("")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Product>>> Get([FromServices] DataContext context)
         {
             var products = await context.Products.Include(x => x.Category).AsNoTracking().ToListAsync();
@@ -28,6 +30,7 @@ namespace Shop.Controllers
 
         [HttpGet]
         [Route("{id:Int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Product>>> GetByCategory(int id, [FromServices] DataContext context)
         {
             var products = await context
@@ -41,6 +44,8 @@ namespace Shop.Controllers
 
         [HttpPost]
         [Route("")]
+        [AllowAnonymous]
+        [Authorize(Roles = "employee")]
         public async Task<ActionResult<Product>> Post([FromBody] Product model, [FromServices] DataContext context)
         {
             if (ModelState.IsValid) 
@@ -55,6 +60,9 @@ namespace Shop.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("")]
+        [Authorize(Roles = "employee")]
         public async Task<ActionResult<Product>> Delete(int id, [FromServices] DataContext context)
         {
             var product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
