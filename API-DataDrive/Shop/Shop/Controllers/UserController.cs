@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
-    [Route("Users")]
+    [Route("v1/users")]
     public class UserController : Controller
     {
 
@@ -51,7 +51,7 @@ namespace Shop.Controllers
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "manager")]
-        public async Task<ActionResult<User>> Put([FromServices] DataContext context,int id [FromBody] User model)
+        public async Task<ActionResult<User>> Put([FromServices] DataContext context,int id ,[FromBody] User model)
         {
             //Verifica se os dados são validos
             if (!ModelState.IsValid)

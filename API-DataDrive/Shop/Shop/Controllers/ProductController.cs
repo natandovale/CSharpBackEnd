@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Controllers
 {
-    [Route("Products")]
+    [Route("v1/products")]
     public class ProductController : ControllerBase
     {
         [HttpGet]
@@ -22,6 +22,9 @@ namespace Shop.Controllers
             return products;
         }
 
+        [HttpGet]
+        [Route("")]
+        [AllowAnonymous]
         public async Task<ActionResult<Product>> GetById(int id, [FromServices] DataContext context)
         {
             var product = await context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
