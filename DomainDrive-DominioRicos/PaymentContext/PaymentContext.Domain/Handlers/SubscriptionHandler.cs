@@ -12,7 +12,7 @@ using PaymentContext.Shared.Handlers;
 
 namespace PaymentContext.Domain.Handlers
 {
-    class SubscriptionHandler : 
+    public class SubscriptionHandler : 
         Notifiable, 
         IHandler<CreateBoletoSubscriptionCommand>,
         IHandler<CreatePayPalSubscriptionCommands>
@@ -73,11 +73,17 @@ namespace PaymentContext.Domain.Handlers
             //Agrupar as validacoes
             AddNotifications(name, document, email, address, student, subscription, payment);
 
+            //Checar as notificações
+            if (Invalid)
+                return new CommandResult(false, "Não foi possível realizar sua assinatura!!!");
+
             //Salvar as informacoes
             _repository.CreateSubscription(student);
 
             //Salvar E-mail de boas vindas
             _emailService.Send(student.Name.ToString(), student.Email.Address, "bem vindo ao balta.io", "Sua assinatura foi criada");
+
+            //Retornar informações
             return new CommandResult(true, "Assinatura realizada com sucesso");
         }
 
